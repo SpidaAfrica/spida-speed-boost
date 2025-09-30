@@ -1,73 +1,144 @@
-# Welcome to your Lovable project
+# SPIDA Africa - Agricultural Technology Platform
 
-## Project info
+## About SPIDA
 
-**URL**: https://lovable.dev/projects/d1b071b1-e0c7-4b48-bb08-293949a55125
+SPIDA (Smart Platform for Integrated Digital Agriculture) is transforming Africa's agricultural landscape through technology and innovation. We provide comprehensive solutions that address every aspect of the agricultural value chain, from mechanization and financing to market access and logistics.
 
-## How can I edit this code?
+## Our Mission
 
-There are several ways of editing your application.
+To create an inclusive, digitally connected agricultural ecosystem that ensures every farmer thrives with higher productivity, guaranteed market access, and sustainable farming practices.
 
-**Use Lovable**
+## Technology Stack
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/d1b071b1-e0c7-4b48-bb08-293949a55125) and start prompting.
+This project is built with modern web technologies:
 
-Changes made via Lovable will be committed automatically to this repo.
+- **Vite** - Fast build tool and development server
+- **React 18** - Modern UI library with TypeScript
+- **TypeScript** - Type-safe JavaScript development
+- **Tailwind CSS** - Utility-first CSS framework
+- **shadcn/ui** - Beautiful, accessible UI components
+- **React Router** - Client-side routing
+- **Lucide React** - Beautiful icon library
 
-**Use your preferred IDE**
+## Getting Started
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Prerequisites
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- Node.js (version 18 or higher)
+- npm or yarn package manager
 
-Follow these steps:
+### Installation
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd spida-speed-boost
+   ```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-# Step 3: Install the necessary dependencies.
-npm i
+3. **Start the development server**
+   ```bash
+   npm run dev
+   ```
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+4. **Open your browser**
+   Navigate to `http://localhost:8080` to view the application.
+
+## Available Scripts
+
+- `npm run dev` - Start development server with hot reload
+- `npm run build` - Build for production
+- `npm run build:dev` - Build in development mode
+- `npm run preview` - Preview the production build
+- `npm run lint` - Run ESLint for code quality
+
+## Project Structure
+
+```
+src/
+├── components/          # Reusable UI components
+│   ├── ui/             # shadcn/ui components
+│   ├── Header.tsx      # Navigation header
+│   ├── Footer.tsx      # Site footer
+│   ├── Hero.tsx        # Homepage hero section
+│   ├── AboutSection.tsx # About us section
+│   ├── ContactSection.tsx # Contact form
+│   └── SpidaLogo.tsx   # Custom logo component
+├── pages/              # Page components
+│   ├── Index.tsx       # Homepage
+│   ├── About.tsx       # About page
+│   ├── Products.tsx    # Products showcase
+│   ├── Blog.tsx        # Blog and news
+│   └── FAQ.tsx         # Frequently asked questions
+├── assets/             # Images and static assets
+├── hooks/              # Custom React hooks
+└── lib/                # Utility functions
 ```
 
-**Edit a file directly in GitHub**
+## Features
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### 🚜 SpiTractor
+- Smart farm mechanization through AI-driven virtual farm clusters
+- Affordable shared tractor services
+- 3x yield increase through mechanization
+- Local language AI extension agents
 
-**Use GitHub Codespaces**
+### 📊 SpiOptima
+- Agricultural intelligence platform with climate insights
+- AI-powered farm simulation and planning tools
+- Alternative credit scoring for farmers
+- Predictive analytics for crop insurance
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### 🛒 SpiCommerce
+- Integrated marketplace connecting farmers directly with buyers
+- Verified logistics partners with live tracking
+- Quality assurance and food safety standards
+- B2B bulk supply for hotels and processors
 
-## What technologies are used for this project?
+## Deployment
 
-This project is built with:
+### Production Build
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+```bash
+npm run build
+```
 
-## How can I deploy this project?
+The built files will be in the `dist` directory, ready for deployment to any static hosting service.
 
-Simply open [Lovable](https://lovable.dev/projects/d1b071b1-e0c7-4b48-bb08-293949a55125) and click on Share -> Publish.
+### Deployment Options
 
-## Can I connect a custom domain to my Lovable project?
+- **Vercel** - Recommended for React applications
+- **Netlify** - Great for static sites
+- **GitHub Pages** - Free hosting for public repositories
+- **AWS S3 + CloudFront** - Scalable cloud hosting
 
-Yes, you can!
+## Contributing
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+## License
+
+This project is proprietary software owned by SPIDA Africa. All rights reserved.
+
+## Contact
+
+- **Website**: [spida.africa](https://spida.africa)
+- **Email**: hello@spida.africa
+- **Phone**: +254 (0) 700 000 000
+- **Location**: Nairobi, Kenya
+
+## Support
+
+For technical support or questions about our agricultural solutions, please contact our team at hello@spida.africa.
+
+---
+
+**SPIDA Africa** - Transforming African Agriculture Through Technology

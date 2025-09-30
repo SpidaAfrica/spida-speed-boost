@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Target, Heart, Lightbulb, Users } from "lucide-react";
+import { Target, Info, Lightbulb, Users } from "lucide-react";
 
 const AboutSection = () => {
   const values = [
@@ -10,7 +10,7 @@ const AboutSection = () => {
       description: "Transform Africa's agricultural landscape through technology and innovation, ensuring every farmer thrives."
     },
     {
-      icon: Heart,
+      icon: Target,
       title: "Our Values",
       description: "Integrity, sustainability, and empowerment guide everything we do for farming communities."
     },
@@ -32,7 +32,7 @@ const AboutSection = () => {
         {/* Header */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center px-4 py-2 rounded-full bg-accent/10 text-accent border border-accent/20 mb-6">
-            <Heart className="w-4 h-4 mr-2" />
+            <Info className="w-4 h-4 mr-2" />
             <span className="text-sm font-medium">About SPIDA</span>
           </div>
           

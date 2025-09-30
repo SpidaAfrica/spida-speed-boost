@@ -7,14 +7,14 @@ const About = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main className="pt-16">
+      <main>
         {/* Hero Section */}
-        <section className="py-20 bg-gradient-subtle">
+        <section className="py-20 bg-gradient-subtle overflow-visible">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground">
+            <div className="max-w-4xl mx-auto text-center overflow-visible">
+              <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground leading-normal overflow-visible">
                 Transforming Africa's
-                <span className="block bg-gradient-primary bg-clip-text text-transparent">
+                <span className="block bg-gradient-primary bg-clip-text text-transparent leading-normal">
                   Agricultural Future
                 </span>
               </h1>
@@ -87,25 +87,74 @@ const About = () => {
           </div>
         </section>
 
+        {/* Leadership Section */}
+        <section id="leadership" className="py-20">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl font-bold mb-6 text-foreground">Our Leadership Team</h2>
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+                Meet the visionary leaders driving SPIDA's mission to transform African agriculture through technology and innovation.
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              {/* Daniel Agbojo */}
+              <div className="bg-gradient-subtle rounded-2xl p-8 text-center">
+                <div className="w-24 h-24 bg-gradient-primary rounded-full mx-auto mb-6 flex items-center justify-center">
+                  <span className="text-2xl font-bold text-primary-foreground">DA</span>
+                </div>
+                <h3 className="text-xl font-bold mb-2 text-foreground">Daniel Agbojo</h3>
+                <p className="text-primary font-semibold mb-4">CEO/Co-founder</p>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  Data analytics specialist with expertise in AI & Sustainable Agriculture, 
+                  Sales and Marketing. Leading SPIDA's strategic vision and growth.
+                </p>
+              </div>
+
+              {/* Marvin Daniels */}
+              <div className="bg-gradient-subtle rounded-2xl p-8 text-center">
+                <div className="w-24 h-24 bg-gradient-primary rounded-full mx-auto mb-6 flex items-center justify-center">
+                  <span className="text-2xl font-bold text-primary-foreground">MD</span>
+                </div>
+                <h3 className="text-xl font-bold mb-2 text-foreground">Marvin Daniels</h3>
+                <p className="text-primary font-semibold mb-4">CSO/Co-founder</p>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  6+ years in West African agribusiness, Sustainable food systems expert, 
+                  Business Development. Driving sustainable agricultural practices.
+                </p>
+              </div>
+
+              {/* Triumphant Akinola */}
+              <div className="bg-gradient-subtle rounded-2xl p-8 text-center">
+                <div className="w-24 h-24 bg-gradient-primary rounded-full mx-auto mb-6 flex items-center justify-center">
+                  <span className="text-2xl font-bold text-primary-foreground">TA</span>
+                </div>
+                <h3 className="text-xl font-bold mb-2 text-foreground">Triumphant Akinola</h3>
+                <p className="text-primary font-semibold mb-4">CTO/Co-Founder</p>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  5+ years experience Software Engineer, AI Solutions Engineer, 
+                  Innovating AI Solutions, GENAI Leader. Building the technology backbone.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Stats Section */}
         <section className="py-20">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-8 text-center">
               <div>
-                <div className="text-4xl font-bold text-primary mb-2">10K+</div>
+                <div className="text-4xl font-bold text-primary mb-2">1K+</div>
                 <div className="text-muted-foreground">Farmers Connected</div>
               </div>
               <div>
                 <div className="text-4xl font-bold text-primary mb-2">50%</div>
-                <div className="text-muted-foreground">Yield Increase</div>
+                <div className="text-muted-foreground">Expected Yield Increase</div>
               </div>
               <div>
-                <div className="text-4xl font-bold text-primary mb-2">200K</div>
-                <div className="text-muted-foreground">Acres Optimized</div>
-              </div>
-              <div>
-                <div className="text-4xl font-bold text-primary mb-2">95%</div>
-                <div className="text-muted-foreground">Success Rate</div>
+                <div className="text-4xl font-bold text-primary mb-2">99%</div>
+                <div className="text-muted-foreground">Market Survey Acceptance</div>
               </div>
             </div>
           </div>

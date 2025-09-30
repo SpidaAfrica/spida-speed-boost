@@ -1,43 +1,108 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Leaf } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import SpidaLogo from "./SpidaLogo";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const navigation = [
-    { name: "Home", href: "/" },
-    { name: "About", href: "/about" },
-    { name: "Products", href: "/products" },
-    { name: "Blog", href: "/blog" },
-    { name: "FAQ", href: "/faq" },
-    { name: "Contact", href: "#contact" },
+    { name: "Home", href: "/", section: "home" },
+    { name: "About", href: "/about", section: "about" },
+    { name: "Products", href: "/products", section: "top" },
+    { name: "Blog", href: "/blog", section: "top" },
+    { name: "FAQ", href: "/faq", section: "top" },
+    { name: "Contact", href: "/#contact", section: "contact" },
   ];
 
+  // Handle scroll detection for header transparency
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      setIsScrolled(scrollTop > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const handleSectionClick = (e: React.MouseEvent, sectionId: string | null, href: string) => {
+    e.preventDefault();
+    
+    if (sectionId) {
+      if (sectionId === "top") {
+        // Special case: scroll to top of the target page
+        navigate(href);
+        setTimeout(() => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 100);
+      } else {
+        // This is a section that exists on the home page
+        if (location.pathname !== '/') {
+          // If not on home page, navigate to home first, then scroll
+          navigate('/');
+          setTimeout(() => {
+            const section = document.getElementById(sectionId);
+            if (section) {
+              section.scrollIntoView({ behavior: 'smooth' });
+            }
+          }, 100);
+        } else {
+          // If already on home page, just scroll
+          const section = document.getElementById(sectionId);
+          if (section) {
+            section.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      }
+    } else {
+      // This is a regular page navigation
+      navigate(href);
+      // Always scroll to top when navigating to a new page
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 100);
+    }
+    
+    setIsMenuOpen(false);
+  };
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
+    <header className={`relative z-50 transition-all duration-300 ${
+      isScrolled 
+        ? 'bg-background/20 backdrop-blur-sm border-b border-border/30' 
+        : 'bg-background/40 backdrop-blur-sm border-b border-border/50'
+    }`}>
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
-              <Leaf className="w-5 h-5 text-primary-foreground" />
-            </div>
-            <span className="text-xl font-bold text-foreground">SPIDA</span>
+          <Link 
+            to="/" 
+            onClick={() => {
+              // Always scroll to top when clicking logo
+              setTimeout(() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }, 100);
+            }}
+          >
+            <SpidaLogo size="md" />
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navigation.map((item) => (
-              item.href.startsWith('#') ? (
-                <a
+              item.section ? (
+                <button
                   key={item.name}
-                  href={item.href}
+                  onClick={(e) => handleSectionClick(e, item.section, item.href)}
                   className="text-foreground hover:text-primary transition-colors duration-200"
                 >
                   {item.name}
-                </a>
+                </button>
               ) : (
                 <Link
                   key={item.name}
@@ -52,7 +117,11 @@ const Header = () => {
 
           {/* Contact Button */}
           <div className="hidden md:flex">
-            <Button variant="default" className="bg-gradient-primary hover:shadow-glow">
+            <Button 
+              variant="default" 
+              className="bg-gradient-primary hover:shadow-glow"
+              onClick={(e) => handleSectionClick(e, "contact", "/#contact")}
+            >
               Get Started
             </Button>
           </div>
@@ -74,15 +143,14 @@ const Header = () => {
           <div className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 bg-background border-t border-border">
               {navigation.map((item) => (
-                item.href.startsWith('#') ? (
-                  <a
+                item.section ? (
+                  <button
                     key={item.name}
-                    href={item.href}
-                    className="block px-3 py-2 text-foreground hover:text-primary transition-colors duration-200"
-                    onClick={() => setIsMenuOpen(false)}
+                    onClick={(e) => handleSectionClick(e, item.section, item.href)}
+                    className="block w-full text-left px-3 py-2 text-foreground hover:text-primary transition-colors duration-200"
                   >
                     {item.name}
-                  </a>
+                  </button>
                 ) : (
                   <Link
                     key={item.name}
@@ -95,7 +163,14 @@ const Header = () => {
                 )
               ))}
               <div className="px-3 py-2">
-                <Button variant="default" className="w-full bg-gradient-primary">
+                <Button 
+                  variant="default" 
+                  className="w-full bg-gradient-primary"
+                  onClick={(e) => {
+                    handleSectionClick(e, "contact", "/#contact");
+                    setIsMenuOpen(false);
+                  }}
+                >
                   Get Started
                 </Button>
               </div>

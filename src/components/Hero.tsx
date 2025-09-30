@@ -22,9 +22,9 @@ const Hero = () => {
           </div>
 
           {/* Main Headline */}
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight animate-fade-in">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-normal animate-fade-in">
             Africa's Food System
-            <span className="block bg-gradient-to-r from-accent to-yellow-300 bg-clip-text text-transparent">
+            <span className="block bg-gradient-to-r from-accent to-yellow-300 bg-clip-text text-transparent leading-normal">
               Revolutionized
             </span>
           </h1>
@@ -55,22 +55,18 @@ const Hero = () => {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16 animate-fade-in">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-8 mt-16 animate-fade-in">
             <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-accent">10K+</div>
+              <div className="text-3xl md:text-4xl font-bold text-accent">1K+</div>
               <div className="text-white/80 text-sm">Farmers Connected</div>
             </div>
             <div className="text-center">
               <div className="text-3xl md:text-4xl font-bold text-accent">50%</div>
-              <div className="text-white/80 text-sm">Yield Increase</div>
+              <div className="text-white/80 text-sm">Expected Yield Increase</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-accent">200K</div>
-              <div className="text-white/80 text-sm">Acres Optimized</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-accent">95%</div>
-              <div className="text-white/80 text-sm">Success Rate</div>
+              <div className="text-3xl md:text-4xl font-bold text-accent">99%</div>
+              <div className="text-white/80 text-sm">Market Survey Acceptance</div>
             </div>
           </div>
         </div>

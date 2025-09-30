@@ -1,27 +1,86 @@
-import { Leaf, Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin } from "lucide-react";
+import { useLocation, useNavigate } from "react-router-dom";
+import SpidaLogo from "./SpidaLogo";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const footerLinks = {
     company: [
-      { name: "About Us", href: "#about" },
-      { name: "Our Mission", href: "#about" },
-      { name: "Leadership", href: "#" },
-      { name: "Careers", href: "#" }
+      { name: "About Us", href: "/about", section: null },
+      { name: "Our Mission", href: "/#about", section: "about" },
+      { name: "Leadership", href: "/about#leadership", section: "leadership" },
+      { name: "Careers", href: "#", section: null }
     ],
     solutions: [
-      { name: "Digital Platform", href: "#solutions" },
-      { name: "Smart Agriculture", href: "#solutions" },
-      { name: "Market Access", href: "#solutions" },
-      { name: "Financial Support", href: "#solutions" }
+      { name: "Products", href: "/products", section: null },
+      { name: "Digital Platform", href: "/products", section: null },
+      { name: "Smart Agriculture", href: "/products", section: null },
+      { name: "Market Access", href: "/products", section: null }
     ],
     resources: [
-      { name: "Blog", href: "#" },
-      { name: "Case Studies", href: "#" },
-      { name: "Documentation", href: "#" },
-      { name: "Support", href: "#contact" }
+      { name: "Blog", href: "/blog", section: null },
+      { name: "FAQ", href: "/faq", section: null },
+      { name: "Documentation", href: "#", section: null },
+      { name: "Support", href: "/#contact", section: "contact" }
     ]
+  };
+
+  const handleSectionClick = (e: React.MouseEvent, sectionId: string | null, href: string) => {
+    e.preventDefault();
+    
+    if (sectionId) {
+      // Check if this is a section on a specific page (like /about#leadership)
+      if (href.includes('#') && href !== '/#') {
+        // Extract the page path and section ID
+        const [pagePath] = href.split('#');
+        if (location.pathname !== pagePath) {
+          // Navigate to the page first, then scroll to section
+          navigate(pagePath);
+          setTimeout(() => {
+            const section = document.getElementById(sectionId);
+            if (section) {
+              section.scrollIntoView({ behavior: 'smooth' });
+            }
+          }, 100);
+        } else {
+          // Already on the correct page, just scroll to section
+          const section = document.getElementById(sectionId);
+          if (section) {
+            section.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      } else {
+        // This is a section that exists on the home page
+        if (location.pathname !== '/') {
+          // If not on home page, navigate to home first, then scroll
+          navigate('/');
+          setTimeout(() => {
+            const section = document.getElementById(sectionId);
+            if (section) {
+              section.scrollIntoView({ behavior: 'smooth' });
+            }
+          }, 100);
+        } else {
+          // If already on home page, just scroll
+          const section = document.getElementById(sectionId);
+          if (section) {
+            section.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      }
+    } else {
+      // This is a regular page navigation or placeholder
+      if (href !== '#') {
+        navigate(href);
+        // Always scroll to top when navigating to a new page
+        setTimeout(() => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 100);
+      }
+    }
   };
 
   return (
@@ -32,11 +91,8 @@ const Footer = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
             {/* Brand & Description */}
             <div className="lg:col-span-2">
-              <div className="flex items-center space-x-2 mb-6">
-                <div className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center">
-                  <Leaf className="w-5 h-5 text-accent-foreground" />
-                </div>
-                <span className="text-2xl font-bold">SPIDA</span>
+              <div className="mb-6">
+                <SpidaLogo size="lg" className="text-primary-foreground" />
               </div>
               
               <p className="text-primary-foreground/80 leading-relaxed mb-6 max-w-md">
@@ -66,13 +122,13 @@ const Footer = () => {
               <h3 className="text-lg font-semibold mb-6">Company</h3>
               <div className="space-y-3">
                 {footerLinks.company.map((link, index) => (
-                  <a
+                  <button
                     key={index}
-                    href={link.href}
-                    className="block text-primary-foreground/80 hover:text-accent transition-colors duration-200"
+                    onClick={(e) => handleSectionClick(e, link.section, link.href)}
+                    className="block text-left text-primary-foreground/80 hover:text-accent transition-colors duration-200"
                   >
                     {link.name}
-                  </a>
+                  </button>
                 ))}
               </div>
             </div>
@@ -82,13 +138,13 @@ const Footer = () => {
               <h3 className="text-lg font-semibold mb-6">Solutions</h3>
               <div className="space-y-3">
                 {footerLinks.solutions.map((link, index) => (
-                  <a
+                  <button
                     key={index}
-                    href={link.href}
-                    className="block text-primary-foreground/80 hover:text-accent transition-colors duration-200"
+                    onClick={(e) => handleSectionClick(e, link.section, link.href)}
+                    className="block text-left text-primary-foreground/80 hover:text-accent transition-colors duration-200"
                   >
                     {link.name}
-                  </a>
+                  </button>
                 ))}
               </div>
             </div>
@@ -98,13 +154,13 @@ const Footer = () => {
               <h3 className="text-lg font-semibold mb-6">Resources</h3>
               <div className="space-y-3">
                 {footerLinks.resources.map((link, index) => (
-                  <a
+                  <button
                     key={index}
-                    href={link.href}
-                    className="block text-primary-foreground/80 hover:text-accent transition-colors duration-200"
+                    onClick={(e) => handleSectionClick(e, link.section, link.href)}
+                    className="block text-left text-primary-foreground/80 hover:text-accent transition-colors duration-200"
                   >
                     {link.name}
-                  </a>
+                  </button>
                 ))}
               </div>
             </div>
