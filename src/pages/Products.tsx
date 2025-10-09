@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import WaitlistSection from "@/components/WaitlistSection";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -85,9 +86,9 @@ const Products = () => {
                 <span className="text-sm font-medium">Our Solutions</span>
               </div>
               
-              <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground">
+              <h1 className="text-4xl md:text-6xl font-bold mb-12 text-foreground leading-tight">
                 Complete Agricultural
-                <span className="block bg-gradient-primary bg-clip-text text-transparent">
+                <span className="block bg-gradient-primary bg-clip-text text-transparent leading-tight">
                   Technology Suite
                 </span>
               </h1>
@@ -261,6 +262,9 @@ const Products = () => {
             </div>
           </div>
         </section>
+
+        {/* Waitlist Section */}
+        <WaitlistSection />
       </main>
       <Footer />
     </div>

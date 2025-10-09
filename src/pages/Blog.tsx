@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import WaitlistSection from "@/components/WaitlistSection";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -214,6 +215,9 @@ SPIDA is building the future of African agriculture, one farmer at a time. If yo
             </div>
           </div>
         </section>
+
+        {/* Waitlist Section */}
+        <WaitlistSection />
       </main>
       <Footer />
     </div>

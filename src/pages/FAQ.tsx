@@ -7,19 +7,19 @@ import { ArrowRight, MessageCircle } from "lucide-react";
 const FAQ = () => {
   const faqs = [
     {
-      question: "What is your company's mission?",
+      question: "What is SPIDA's mission?",
       answer: "Our mission is to transform Africa's agricultural sector by creating a connected food system that delivers higher productivity, guaranteed logistics, and assured sales. We use advanced technology, smart data, and innovation tailored to Africa's realities to help farmers thrive instead of just survive."
     },
     {
-      question: "What is your vision for the future?", 
+      question: "What is SPIDA's vision for the future?", 
       answer: "We envision an Africa where every farmer prospers through technology-enabled agriculture. Our goal is to move from fragmentation to a connected food system, from inefficiency to abundance, and from surviving to thriving. We want to unlock Africa's vast agricultural potential."
     },
     {
-      question: "How do you support smallholder farmers?",
+      question: "How does SPIDA support smallholder farmers?",
       answer: "We support farmers through our three main products: SpiTractor for affordable mechanization, SpiOptima for smart financing and climate intelligence, and SpiCommerce for direct market access. We handle input funding, field preparation, market connections, and logistics so farmers can focus on growing food."
     },
     {
-      question: "What technologies do you use?",
+      question: "What technologies does SPIDA use?",
       answer: "We use AI-driven virtual farm clusters, climate data analytics, machine learning for credit scoring, IoT sensors for farm monitoring, mobile technology for extension services, and blockchain for supply chain transparency. Our technology stack is designed specifically for African agricultural contexts."
     },
     {
@@ -31,16 +31,16 @@ const FAQ = () => {
       answer: "SpiOptima is our agri-intelligence platform that uses climate data to predict weather, simulate farms for better planning, and build farmer credit profiles from non-traditional data. It helps farmers access better loans while reducing risk for banks through data-driven models."
     },
     {
-      question: "How does your e-marketplace work?",
+      question: "How does SPIDA's e-marketplace work?",
       answer: "Our SpiCommerce platform connects farmers directly to consumers and businesses, eliminating middlemen. We provide verified transport partners, real-time tracking, and quality guarantees. This reduces food waste by up to 50% while ensuring fair, transparent pricing for farmers."
     },
     {
-      question: "What are your success rates?",
+      question: "What are SPIDA's success rates?",
       answer: "We've connected over 10,000 farmers, helped increase yields by 50% on average, optimized over 200,000 acres of farmland, and maintain a 95% success rate across our programs. Our integrated approach ensures sustainable results for all stakeholders."
     },
     {
       question: "How can I get started with SPIDA?",
-      answer: "Getting started is easy! Contact us through our website or call our local representatives. We'll assess your farming needs, explain how our solutions can help, and create a customized plan for your farm. Our team provides full support throughout the onboarding process."
+      answer: "Getting started is easy! Contact us through our website or call our local representatives. We'll assess your farming needs, explain how SPIDA's solutions can help, and create a customized plan for your farm. Our team provides full support throughout the onboarding process."
     },
     {
       question: "Do you provide training and support?",

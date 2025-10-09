@@ -41,14 +41,14 @@ const ContactSection = () => {
     {
       icon: Phone,
       title: "Call Us",
-      details: "+254 (0) 700 000 000",
+      details: "+2347089540773",
       description: "Speak directly with our team"
     },
     {
       icon: MapPin,
       title: "Visit Us",
-      details: "Nairobi, Kenya",
-      description: "Our headquarters in East Africa"
+      details: "Lagos, Nigeria",
+      description: "Our headquarters in West Africa"
     }
   ];
 
