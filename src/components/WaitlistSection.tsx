@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ShoppingCart, Building2, ArrowRight, CheckCircle, Truck, Percent } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
@@ -17,7 +18,8 @@ const WaitlistSection = () => {
     name: "",
     company: "",
     email: "",
-    phone: ""
+    phone: "",
+    companyType: ""
   });
   const [isIndividualOpen, setIsIndividualOpen] = useState(false);
   const [isCompanyOpen, setIsCompanyOpen] = useState(false);
@@ -39,7 +41,7 @@ const WaitlistSection = () => {
       title: "Welcome to SPIDA!",
       description: "Thank you for joining our waitlist as a business partner. You'll be the first to know when we launch!",
     });
-    setCompanyFormData({ name: "", company: "", email: "", phone: "" });
+    setCompanyFormData({ name: "", company: "", email: "", phone: "", companyType: "" });
     setIsCompanyOpen(false);
   };
 
@@ -54,6 +56,13 @@ const WaitlistSection = () => {
     setCompanyFormData({
       ...companyFormData,
       [e.target.name]: e.target.value
+    });
+  };
+
+  const handleCompanyTypeChange = (value: string) => {
+    setCompanyFormData({
+      ...companyFormData,
+      companyType: value
     });
   };
 
@@ -239,6 +248,20 @@ const WaitlistSection = () => {
                         onChange={handleCompanyChange}
                         required
                       />
+                      <Select value={companyFormData.companyType} onValueChange={handleCompanyTypeChange} required>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select Company Type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="food-beverage">Food and Beverage Company</SelectItem>
+                          <SelectItem value="food-processor">Food Processor</SelectItem>
+                          <SelectItem value="hotel">Hotel</SelectItem>
+                          <SelectItem value="restaurant">Restaurant</SelectItem>
+                          <SelectItem value="grocery-store">Grocery Store</SelectItem>
+                          <SelectItem value="supermarket">Supermarket</SelectItem>
+                          <SelectItem value="retailer">Retailer</SelectItem>
+                        </SelectContent>
+                      </Select>
                       <Input
                         name="email"
                         type="email"
