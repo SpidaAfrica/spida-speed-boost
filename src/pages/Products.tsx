@@ -1,13 +1,15 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import WaitlistSection from "@/components/WaitlistSection";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Tractor, BarChart3, ShoppingCart, ExternalLink, CheckCircle, Zap, Shield } from "lucide-react";
 import { SEO, SEOConfigs } from "@/components/SEO";
+import { useNavigate } from "react-router-dom";
 
 const Products = () => {
+  const navigate = useNavigate();
+  
   const products = [
     {
       name: "SpiTractor",
@@ -269,8 +271,38 @@ const Products = () => {
           </div>
         </section>
 
-        {/* Waitlist Section */}
-        <WaitlistSection />
+        {/* Call to Action Section */}
+        <section className="py-20 bg-gradient-subtle">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-4xl mx-auto text-center">
+              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-foreground">
+                Ready to Get Started?
+              </h2>
+              <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
+                Join thousands of farmers and businesses already benefiting from SPIDA's innovative agricultural solutions.
+              </p>
+              <div className="flex justify-center">
+                <Button 
+                  size="lg" 
+                  className="bg-gradient-primary hover:shadow-glow"
+                  onClick={() => {
+                    navigate('/#waitlist');
+                    // Scroll to waitlist section after navigation
+                    setTimeout(() => {
+                      const waitlistElement = document.getElementById('waitlist');
+                      if (waitlistElement) {
+                        waitlistElement.scrollIntoView({ behavior: 'smooth' });
+                      }
+                    }, 100);
+                  }}
+                >
+                  Join Our Waitlist
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
       <Footer />
     </div>
