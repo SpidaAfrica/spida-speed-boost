@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/waitlist_submit.php",
-      "destination": "https://spida.africa/waitlist_submit.php"
+      "destination": "https://spr-sites.spida.africa/waitlist_submit.php"
     },
     {
       "source": "/(.*)",
