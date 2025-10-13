@@ -9,8 +9,14 @@ export const validateEmail = (email: string): boolean => {
 };
 
 export const validatePhone = (phone: string): boolean => {
-  const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
-  return phoneRegex.test(phone.replace(/\s/g, ''));
+  // Remove all spaces, dashes, parentheses, and dots
+  const cleanPhone = phone.replace(/[\s\-\(\)\.]/g, '');
+  
+  // Accept phone numbers with optional + prefix and 7-15 digits
+  // This accepts: +1234567890, 1234567890, +234 123 456 7890, (123) 456-7890, etc.
+  const phoneRegex = /^[\+]?[\d]{7,15}$/;
+  
+  return phoneRegex.test(cleanPhone);
 };
 
 export const validateName = (name: string): boolean => {
