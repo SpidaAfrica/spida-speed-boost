@@ -48,9 +48,7 @@ const WaitlistSection = () => {
   const [individualErrors, setIndividualErrors] = useState<string[]>([]);
   const [companyErrors, setCompanyErrors] = useState<string[]>([]);
 
-  const handleIndividualSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
+  const handleIndividualSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     // Sanitize inputs
     const sanitizedData = {
       name: sanitizeInput(individualFormData.name),
@@ -62,24 +60,18 @@ const WaitlistSection = () => {
     const validation: ValidationResult = validateForm(sanitizedData);
     
     if (!validation.isValid) {
+      e.preventDefault();
       setIndividualErrors(validation.errors);
       return;
     }
     
-    // Clear errors
+    // Clear errors and allow form to submit naturally to PHP
     setIndividualErrors([]);
     
-    // For development - show success message
-    alert(`Individual waitlist submission:\nName: ${sanitizedData.name}\nEmail: ${sanitizedData.email}\nPhone: ${sanitizedData.phone}`);
-    
-    // Clear form
-    setIndividualFormData({ name: "", email: "", phone: "" });
-    setIsIndividualOpen(false);
+    // Form will submit to action URL via native HTML form submission
   };
 
-  const handleCompanySubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
+  const handleCompanySubmit = (e: React.FormEvent<HTMLFormElement>) => {
     // Sanitize inputs
     const sanitizedData = {
       name: sanitizeInput(companyFormData.name),
@@ -93,19 +85,15 @@ const WaitlistSection = () => {
     const validation: ValidationResult = validateForm(sanitizedData);
     
     if (!validation.isValid) {
+      e.preventDefault();
       setCompanyErrors(validation.errors);
       return;
     }
     
-    // Clear errors
+    // Clear errors and allow form to submit naturally to PHP
     setCompanyErrors([]);
     
-    // For development - show success message
-    alert(`Company waitlist submission:\nName: ${sanitizedData.name}\nCompany: ${sanitizedData.company}\nEmail: ${sanitizedData.email}\nPhone: ${sanitizedData.phone}\nType: ${sanitizedData.companyType}`);
-    
-    // Clear form
-    setCompanyFormData({ name: "", company: "", email: "", phone: "", companyType: "" });
-    setIsCompanyOpen(false);
+    // Form will submit to action URL via native HTML form submission
   };
 
   return (
@@ -198,7 +186,14 @@ const WaitlistSection = () => {
                         Be the first to access fresh produce from our partner farmers
                       </DialogDescription>
                     </DialogHeader>
-                    <form onSubmit={handleIndividualSubmit} className="space-y-4">
+                    <form 
+                      action="https://spida.africa/api/waitlist_submit.php" 
+                      method="post" 
+                      onSubmit={handleIndividualSubmit} 
+                      className="space-y-4"
+                    >
+                      <input type="hidden" name="list_name" value="alpha_waitlist" />
+                      
                       {individualErrors.length > 0 && (
                         <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-3">
                           <div className="flex items-center space-x-2 text-destructive">
@@ -293,7 +288,15 @@ const WaitlistSection = () => {
                         Access premium produce for your business needs
                       </DialogDescription>
                     </DialogHeader>
-                    <form onSubmit={handleCompanySubmit} className="space-y-4">
+                    <form 
+                      action="https://spida.africa/api/waitlist_submit.php" 
+                      method="post" 
+                      onSubmit={handleCompanySubmit} 
+                      className="space-y-4"
+                    >
+                      <input type="hidden" name="list_name" value="beta_waitlist" />
+                      <input type="hidden" name="company_type" value={companyFormData.companyType} />
+                      
                       {companyErrors.length > 0 && (
                         <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-3">
                           <div className="flex items-center space-x-2 text-destructive">
