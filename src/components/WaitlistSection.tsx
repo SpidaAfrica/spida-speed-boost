@@ -233,7 +233,7 @@ const WaitlistSection = () => {
                         onChange={(e) => setIndividualFormData({...individualFormData, phone: e.target.value})}
                         className={individualErrors.some(e => e.includes('phone')) ? 'border-destructive' : ''}
                       />
-                      <input type="text" name="company" style={{display: 'none'}} />
+                      <input type="text" name="company" value="" style={{display: 'none'}} />
                       <Button type="submit" className="w-full bg-gradient-primary hover:shadow-glow">
                         Join Waitlist
                       </Button>
@@ -320,7 +320,7 @@ const WaitlistSection = () => {
                         className={companyErrors.some(e => e.includes('Name')) ? 'border-destructive' : ''}
                       />
                       <Input
-                        name="company_name"
+                        name="company"
                         placeholder="Company Name"
                         value={companyFormData.company}
                         onChange={(e) => setCompanyFormData({...companyFormData, company: e.target.value})}
@@ -355,7 +355,6 @@ const WaitlistSection = () => {
                         value={companyFormData.phone}
                         onChange={(e) => setCompanyFormData({...companyFormData, phone: e.target.value})}
                       />
-                      <input type="text" name="company" style={{display: 'none'}} />
                       <Button type="submit" className="w-full bg-gradient-primary hover:shadow-glow">
                         Join Waitlist
                       </Button>
