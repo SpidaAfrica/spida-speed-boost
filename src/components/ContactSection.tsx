@@ -12,6 +12,11 @@ const ContactSection = () => {
     subject: "",
     message: ""
   });
+  const [toast, setToast] = useState({
+    show: false,
+    message: "",
+    variant: "success" as "success" | "error",
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const fieldName = e.target.name === 'full_name' ? 'name' : e.target.name;
@@ -19,6 +24,47 @@ const ContactSection = () => {
       ...formData,
       [fieldName]: e.target.value
     });
+  };
+
+  const handleContactSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    data.set("list_name", "contact_form");
+
+    try {
+      const res = await fetch("https://forms.spida.africa/waitlist.php", {
+        method: "POST",
+        body: data,
+        mode: "cors",
+      });
+      const json = await res.json();
+      if (json.ok) {
+        setToast({
+          show: true,
+          message: json.message || "Your message has been received. We'll be in touch.",
+          variant: "success",
+        });
+        form.reset();
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      } else {
+        setToast({
+          show: true,
+          message: json.error || "Something went wrong.",
+          variant: "error",
+        });
+      }
+    } catch (err) {
+      setToast({
+        show: true,
+        message: "Network error. Try again.",
+        variant: "error",
+      });
+    } finally {
+      setTimeout(() => {
+        setToast((t) => ({ ...t, show: false }));
+      }, 4000);
+    }
   };
 
   const contactInfo = [
@@ -43,9 +89,25 @@ const ContactSection = () => {
   ];
 
   return (
-    <section id="contact" className="py-20 bg-background">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
+    <>
+      {/* Toast Notification */}
+      <div
+        className={`fixed top-4 left-1/2 -translate-x-1/2 z-[9999] transition-all duration-300 ${
+          toast.show ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-3 pointer-events-none"
+        }`}
+      >
+        <div
+          className={`rounded-lg px-4 py-3 shadow-lg text-sm ${
+            toast.variant === "success" ? "bg-green-600 text-white" : "bg-red-600 text-white"
+          }`}
+        >
+          {toast.message}
+        </div>
+      </div>
+
+      <section id="contact" className="py-20 bg-background">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Header */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 text-primary border border-primary/20 mb-6">
             <Mail className="w-4 h-4 mr-2" />
@@ -113,7 +175,7 @@ const ContactSection = () => {
           {/* Contact Form */}
           <div className="lg:col-span-2">
             <Card className="p-8 shadow-elegant">
-              <form action="https://forms.spida.africa/waitlist.php" method="post" className="space-y-6">
+              <form onSubmit={handleContactSubmit} className="space-y-6">
                 <input type="hidden" name="list_name" value="contact_form" />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
@@ -193,6 +255,7 @@ const ContactSection = () => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 

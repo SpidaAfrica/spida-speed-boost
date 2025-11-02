@@ -23,6 +23,11 @@ const WaitlistSection = () => {
   });
   const [isIndividualOpen, setIsIndividualOpen] = useState(false);
   const [isCompanyOpen, setIsCompanyOpen] = useState(false);
+  const [toast, setToast] = useState({
+    show: false,
+    message: "",
+    variant: "success" as "success" | "error",
+  });
 
   const handleIndividualChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIndividualFormData({
@@ -48,7 +53,9 @@ const WaitlistSection = () => {
   const [individualErrors, setIndividualErrors] = useState<string[]>([]);
   const [companyErrors, setCompanyErrors] = useState<string[]>([]);
 
-  const handleIndividualSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleIndividualSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    
     // Sanitize inputs
     const sanitizedData = {
       name: sanitizeInput(individualFormData.name),
@@ -60,18 +67,58 @@ const WaitlistSection = () => {
     const validation: ValidationResult = validateForm(sanitizedData);
     
     if (!validation.isValid) {
-      e.preventDefault();
       setIndividualErrors(validation.errors);
       return;
     }
     
-    // Clear errors and allow form to submit naturally to PHP
+    // Clear errors
     setIndividualErrors([]);
     
-    // Form will submit to action URL via native HTML form submission
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    if (!data.get("list_name")) {
+      data.set("list_name", "alpha_waitlist");
+    }
+
+    try {
+      const res = await fetch("https://forms.spida.africa/waitlist.php", {
+        method: "POST",
+        body: data,
+        mode: "cors",
+      });
+      const json = await res.json();
+      if (json.ok) {
+        setToast({
+          show: true,
+          message: json.message || "You're on the waitlist 🎉",
+          variant: "success",
+        });
+        form.reset();
+        setIndividualFormData({ name: "", email: "", phone: "" });
+        setIsIndividualOpen(false);
+      } else {
+        setToast({
+          show: true,
+          message: json.error || "Something went wrong.",
+          variant: "error",
+        });
+      }
+    } catch (err) {
+      setToast({
+        show: true,
+        message: "Network error. Try again.",
+        variant: "error",
+      });
+    } finally {
+      setTimeout(() => {
+        setToast((t) => ({ ...t, show: false }));
+      }, 4000);
+    }
   };
 
-  const handleCompanySubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleCompanySubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    
     // Sanitize inputs
     const sanitizedData = {
       name: sanitizeInput(companyFormData.name),
@@ -85,22 +132,76 @@ const WaitlistSection = () => {
     const validation: ValidationResult = validateForm(sanitizedData);
     
     if (!validation.isValid) {
-      e.preventDefault();
       setCompanyErrors(validation.errors);
       return;
     }
     
-    // Clear errors and allow form to submit naturally to PHP
+    // Clear errors
     setCompanyErrors([]);
     
-    // Form will submit to action URL via native HTML form submission
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    if (!data.get("list_name")) {
+      data.set("list_name", "beta_waitlist");
+    }
+
+    try {
+      const res = await fetch("https://forms.spida.africa/waitlist.php", {
+        method: "POST",
+        body: data,
+        mode: "cors",
+      });
+      const json = await res.json();
+      if (json.ok) {
+        setToast({
+          show: true,
+          message: json.message || "You're on the waitlist 🎉",
+          variant: "success",
+        });
+        form.reset();
+        setCompanyFormData({ name: "", company: "", email: "", phone: "", companyType: "" });
+        setIsCompanyOpen(false);
+      } else {
+        setToast({
+          show: true,
+          message: json.error || "Something went wrong.",
+          variant: "error",
+        });
+      }
+    } catch (err) {
+      setToast({
+        show: true,
+        message: "Network error. Try again.",
+        variant: "error",
+      });
+    } finally {
+      setTimeout(() => {
+        setToast((t) => ({ ...t, show: false }));
+      }, 4000);
+    }
   };
 
   return (
-    <section id="waitlist" className="py-20 bg-gradient-subtle">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
-          {/* Header */}
+    <>
+      {/* Toast Notification */}
+      <div
+        className={`fixed top-4 left-1/2 -translate-x-1/2 z-[9999] transition-all duration-300 ${
+          toast.show ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-3 pointer-events-none"
+        }`}
+      >
+        <div
+          className={`rounded-lg px-4 py-3 shadow-lg text-sm ${
+            toast.variant === "success" ? "bg-green-600 text-white" : "bg-red-600 text-white"
+          }`}
+        >
+          {toast.message}
+        </div>
+      </div>
+
+      <section id="waitlist" className="py-20 bg-gradient-subtle">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-6xl mx-auto">
+            {/* Header */}
           <div className="text-center mb-16">
             <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
               <ShoppingCart className="w-4 h-4 mr-2" />
@@ -187,8 +288,6 @@ const WaitlistSection = () => {
                       </DialogDescription>
                     </DialogHeader>
                     <form 
-                      action="https://forms.spida.africa/waitlist.php"
-                      method="post"
                       onSubmit={handleIndividualSubmit}
                       className="space-y-4"
                     >
@@ -289,8 +388,6 @@ const WaitlistSection = () => {
                       </DialogDescription>
                     </DialogHeader>
                     <form 
-                      action="https://forms.spida.africa/waitlist.php"
-                      method="post"
                       onSubmit={handleCompanySubmit}
                       className="space-y-4"
                     >
@@ -374,6 +471,7 @@ const WaitlistSection = () => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 
